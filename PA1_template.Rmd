@@ -73,6 +73,22 @@ summary(totalstepsperday)
 
 ## What is the average daily activity pattern?
 
+1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+```{r}
+Fmins <- aggregate(steps ~ interval, data = dataset, FUN = mean, na.rm = TRUE)
+
+png("Timeseries plot.png",width=480,height=480)
+plot(x = Fmins$interval, 
+    y = Fmins$steps, 
+    type = "l", 
+    col = "blue",
+    xlab = "5-minute Timeline",
+    ylab = "Average Steps Taken ~ Days",
+    main = "Average Daily Activity Pattern")
+
+dev.off()
+```
+
 
 
 ## Imputing missing values
