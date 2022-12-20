@@ -32,6 +32,23 @@ totalstepsperday
 ```
 
 
+```{r}
+
+# converting dates to Y-M-D format
+dataset$date <- as.Date(dataset$date, "%Y-%m-%d")
+
+png("TotalStepsPlot.png",width=480,height=480)
+hist(totalstepsperday$steps, 
+    main="Total Steps per Day", 
+    xlab="Number of Steps per Day", 
+    ylab = "Interval",
+    col="blue",
+    breaks=60)
+
+dev.off()
+```
+
+
 ## What is the average daily activity pattern?
 
 
