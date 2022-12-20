@@ -25,12 +25,14 @@ unlink(temp)
 ```
 
 ## What is mean total number of steps taken per day?
+1. Calculate the total number of steps taken per day
 
 ```{r}
 totalstepsperday <- aggregate(steps ~ date, data = dataset, FUN = sum, na.rm = TRUE)
 totalstepsperday
 ```
 
+2. If you do not understand the difference between a histogram and a barplot, research the difference between them. Make a histogram of the total number of steps taken each day
 
 ```{r}
 
@@ -46,6 +48,26 @@ hist(totalstepsperday$steps,
     breaks=60)
 
 dev.off()
+```
+
+
+3. Calculate and report the mean and median of the total number of steps taken per day
+
+## Mean
+```{r}
+msteps <- mean(totalstepsperday$steps)
+msteps
+```
+
+## Median 
+```{r}
+medsteps <- median(totalstepsperday$steps)
+medsteps
+```
+
+## check work using summary
+```{r}
+summary(totalstepsperday)
 ```
 
 
