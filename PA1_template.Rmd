@@ -97,6 +97,47 @@ maxsteps
 
 ## Imputing missing values
 
+Note that there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data
+
+1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+```{r}
+removemissedvalues <- sum(is.na(dataset$steps))
+removemissedvalues
+```
+
+2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
+Replace NA values with the mean results for five minute intervals
+
+3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
+```{r}
+newdataset <- dataset
+nas <- is.na(newdataset$steps)
+avg_interval <- tapply(newdataset$steps, newdataset$interval, mean, na.rm=TRUE, simplify = TRUE)
+newdataset$steps[nas] <- avg_interval[as.character(newdataset$interval[nas])]
+names(newdataset)
+```
+ Check for no-NA
+```{r}
+sum(is.na(newdataset))
+```
+4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. 
+
+Analysis without NAs:
+```{r}
+totalstepsperday2 <- aggregate(steps ~ date, data = newdataset, FUN = sum, na.rm = TRUE)
+totalstepsperday2
+```
+Histogram without NA values
+```{r}
+png("Histogram without NAs.png",width=480,height=480)
+hist(totalstepsperday2$steps, 
+    main = "Total Steps per Day (no-NA)", 
+    xlab = "Number of Steps per Day", 
+    ylab = "Interval",
+    col="blue",
+    breaks=60)
+dev.off()
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
