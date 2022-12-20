@@ -7,11 +7,29 @@ output:
 
 
 ## Loading and preprocessing the data
+```{r}
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(plyr)
+```
 
 
+
+```{r}
+temp <- tempfile()
+download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", temp, mode="wb")
+unzip(temp, "activity.csv")
+dataset <- read.csv("activity.csv",header=T)
+unlink(temp)
+```
 
 ## What is mean total number of steps taken per day?
 
+```{r}
+totalstepsperday <- aggregate(steps ~ date, data = dataset, FUN = sum, na.rm = TRUE)
+totalstepsperday
+```
 
 
 ## What is the average daily activity pattern?
